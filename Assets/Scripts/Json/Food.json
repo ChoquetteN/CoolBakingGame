@@ -1,0 +1,40 @@
+﻿{
+  "Food": [
+
+    {
+
+      "Name": "Flour",
+      "Buy": 2,
+      "ID": 0
+    },
+
+
+    {
+
+      "Name": "Butter",
+      "Buy": 1,
+      "ID": 1
+    },
+
+
+    {
+
+      "Name": "Dough",
+      "Buy": 6,
+      "ID": 2
+    },
+
+    
+
+    {
+
+      "Name": "Egg",
+      "Buy": 3,
+      "ID": 3
+    }
+
+  ]
+
+}
+
+
