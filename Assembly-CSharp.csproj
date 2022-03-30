@@ -54,30 +54,32 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\SaveSystem.cs" />
+    <Compile Include="Assets\Scripts\SpriteHolder.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\Buy\ItemOnSale.cs" />
+    <Compile Include="Assets\Scripts\OpenMenu.cs" />
     <Compile Include="Assets\Scripts\Recipe.cs" />
+    <Compile Include="Assets\Scripts\SwitchMenuTabCommand.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\PlayerMenu.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\Craft\CookingOutputSlot.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\Craft\CraftMenu.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\Craft\CookingSlot.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\iPlayerMenuTab.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\QuitCommand.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\Buy\BuyMenu.cs" />
     <Compile Include="Assets\Scripts\iCommand.cs" />
     <Compile Include="Assets\Scripts\Food.cs" />
-    <Compile Include="Assets\Scripts\Time\TimeKeeper.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\GoldCounter.cs" />
-    <Compile Include="Assets\Scripts\OpenMenu.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\Craft\CraftMenu.cs" />
-    <Compile Include="Assets\Scripts\Json\JsonLoader.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\iPlayerMenuTab.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\Sell\SellMenu.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\Buy\BuyMenu.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\Craft\CookingSlot.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\Craft\CookingOutputSlot.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\PlayerMenu.cs" />
-    <Compile Include="Assets\Scripts\SwitchMenuTabCommand.cs" />
-    <Compile Include="Assets\Scripts\iFood.cs" />
     <Compile Include="Assets\Scripts\Json\FoodLoader.cs" />
-    <Compile Include="Assets\Scripts\PlayerMenus\Buy\ItemOnSale.cs" />
-    <Compile Include="Assets\Scripts\SpriteHolder.cs" />
+    <Compile Include="Assets\Scripts\iFood.cs" />
+    <Compile Include="Assets\Scripts\Time\TimeKeeper.cs" />
     <Compile Include="Assets\Scripts\BuyCommand.cs" />
+    <Compile Include="Assets\Scripts\GoldCounter.cs" />
+    <Compile Include="Assets\Scripts\PlayerMenus\Sell\SellMenu.cs" />
+    <Compile Include="Assets\Scripts\Json\JsonLoader.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\InventoryCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
