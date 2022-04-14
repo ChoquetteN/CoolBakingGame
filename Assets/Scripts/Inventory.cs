@@ -16,9 +16,6 @@ public class Inventory : MonoBehaviour
     {
         inventoryCards = new List<InventoryCard>();
         FoodPlayerOwns = new Dictionary<Food, int>();
-        AddFood(new Food("Flour", 1, 0), 5);
-        AddFood(new Food("Butter", 1, 1), 5);
-        LabelCards();
     }
 
     public void LoadInventory(Dictionary<Food, int> LoadedDictionary)
@@ -28,44 +25,73 @@ public class Inventory : MonoBehaviour
 
     void LabelCards()
     {
-        Debug.Log(FoodPlayerOwns.Count);
         foreach(KeyValuePair<Food,int> kv in FoodPlayerOwns)
         {
-            InventoryCard myCard = Instantiate(inventoryCardPrefab);
-            myCard.CreateCard(kv.Key);
-            myCard.UpdateNumberOfGood(kv.Value);
-            myCard.transform.parent = this.transform;
-            myCard.OffsetCard(inventoryCards.Count);
-            inventoryCards.Add(myCard);
+            CreateCard(kv.Key, kv.Value);
         }
     }
 
-    public void AddFood(Food food,int amnt)
+    public void AddFoodToInventory(Food food,int amnt)
     {
         foreach(Food f in FoodPlayerOwns.Keys)
         {
             if (food.ID == f.ID)
             {
                 FoodPlayerOwns[f] += amnt;
+                inventoryCards[inventoryCards.FindIndex(card => card.idForFood == f.ID)].UpdateNumberOfGood(FoodPlayerOwns[f]);
                 return;
             }
         }
         FoodPlayerOwns.Add(food, amnt);
+
+       // InventoryCard myCard = CreateCard(food, amnt);
+       // addCardToListOfCards(myCard);
     }
 
-    public void SubTractFoof(Food food, int amnt)
+    public void addFoodToFoodPlayerOwns(Food f, int amnt)
+    {
+        FoodPlayerOwns.Add(f,amnt);
+    }
+
+     public InventoryCard CreateCard(Food f , int amnt )
+    {
+        InventoryCard myCard = Instantiate(inventoryCardPrefab);
+        myCard.CreateCard(f);
+        myCard.UpdateNumberOfGood(amnt);
+        myCard.transform.parent = this.transform;
+        myCard.OffsetCard(inventoryCards.Count);
+        addCardToListOfCards(myCard); // added
+        return myCard;
+    }
+
+    public bool HasCardForFood(Food f)
+    {
+        return inventoryCards.Exists(card => card.idForFood == f.ID);
+    }
+
+    void addCardToListOfCards(InventoryCard myCard)
+    {
+        inventoryCards.Add(myCard);
+    }
+
+    public void SubtractFood(Food food, int amnt)
     {
         foreach (Food f in FoodPlayerOwns.Keys)
         {
             if (food.ID == f.ID)
             {
                 FoodPlayerOwns[f] -= amnt;
-                //if(FoodPlayerOwns[f] -= amnt == 0)
-                //{
-                    
-                //}
+
+                inventoryCards[inventoryCards.FindIndex(card => card.idForFood == f.ID)].UpdateNumberOfGood(FoodPlayerOwns[f]);
+                if (FoodPlayerOwns[f] == 0)
+                {
+                   inventoryCards[inventoryCards.FindIndex(card => card.idForFood == f.ID)].gameObject.SetActive(false); 
+                }
+                return;
             }
         }
+
+
     }
 
 

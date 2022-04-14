@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class InventoryCard : MonoBehaviour
 {
     public int idForFood { get; private set; }
-    // Number of Good
+
+    Vector3 startPos;
+
+    Vector3 lastPos;
 
     // Number of Good text
     [SerializeField]
@@ -36,7 +39,9 @@ public class InventoryCard : MonoBehaviour
         idForFood = f.ID;
         GoodNameText.text = f.Name;
         foodImage.sprite = SpriteHolder.instance.GetFoodArtFromIDNumber(f.ID);
+        SalePriceForGoodText.text = f.Sell.ToString();
         this.gameObject.SetActive(true);
+        
         //ToDo, Set location;
     }
 
@@ -47,13 +52,40 @@ public class InventoryCard : MonoBehaviour
 
     public void OffsetCard(int numberOfCards)
     {
-        Vector2 viewportPoint = Camera.main.WorldToViewportPoint(new Vector3((numberOfCards * gameObject.GetComponent<RectTransform>().rect.x), 0, 0));
+        Vector2 viewportPoint = Camera.main.WorldToViewportPoint(new Vector3((numberOfCards * 1), 0, 0));
         this.gameObject.GetComponent<RectTransform>().anchorMin = viewportPoint;
         this.gameObject.GetComponent<RectTransform>().anchorMax = viewportPoint;
+        startPos = this.transform.position;
+        lastPos = startPos;
     }
     // Hide Card
     public void HideCard()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void OnCardClick(Vector3 pointerLocation)
+    {
+        transform.position = pointerLocation;
+    }
+
+    public void MoveCardToLastPos()
+    {
+        transform.position = lastPos;
+    }
+
+    public void SetNewLastPos(Vector3 newLastPos)
+    {
+        lastPos = newLastPos;
+    }
+
+    public Vector3 GetLastPos()
+    {
+        return lastPos;
+    }
+
+    public void SetToStartPos()
+    {
+        lastPos = startPos;
     }
 }

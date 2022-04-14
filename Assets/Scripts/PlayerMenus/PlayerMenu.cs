@@ -25,9 +25,13 @@ public class PlayerMenu : MonoBehaviour
     [SerializeField]
     SellMenu sellMenu;
 
-    FoodLoader foodLoader;
+    [SerializeField]
+    Inventory playerInventory;
 
-    public Action<int> OnItemPurchase;
+    FoodLoader foodLoader;
+    RecipeLoader recipeLoader;
+
+    public Func<int,bool> OnItemPurchase;
 
     public iPlayerMenuTab curMenu { get; private set; }
 
@@ -63,6 +67,7 @@ public class PlayerMenu : MonoBehaviour
     public void rollNewShop()
     {
         foodLoader = new FoodLoader();
+        recipeLoader = new RecipeLoader();
         buyMenu.AddFoodToShopList(foodLoader.GetRandomFood());
         buyMenu.AddFoodToShopList(foodLoader.GetRandomFood());
         buyMenu.AddFoodToShopList(foodLoader.GetRandomFood());
@@ -82,4 +87,63 @@ public class PlayerMenu : MonoBehaviour
     {
         return buyMenu.ItemsInShop;
     }
+
+    public void addFoodToInventoryById(int id, int amnt)
+    {
+        Food f = foodLoader.GetFoodById(id);
+        addFoodToInventory(f,amnt);
+    }
+
+    public void addFoodToInventory(Food f, int amnt)
+    {
+        playerInventory.AddFoodToInventory(f, amnt);
+    }
+
+    public bool hasCardForFood(Food f)
+    {
+       return playerInventory.HasCardForFood(f);
+    }
+
+    public void subtractFoodFromInventory(Food f)
+    {
+        subtractFoodFromInventory(f, 1);
+    }
+
+    public void subtractFoodFromInventory(Food f, int amnt)
+    {
+        playerInventory.SubtractFood(f, amnt);
+    }
+
+    public Food getSpecificFood(int id)
+    {
+       return foodLoader.GetFoodById(id);
+    }
+
+    public InventoryCard CreateCard(Food f, int amnt)
+    {
+        return playerInventory.CreateCard(f, amnt);
+    }
+
+    public bool checkForRecipie(List<Food> foods, CookingOutputSlot cookingOutput)
+    {
+        recipeLoader = new RecipeLoader();
+        Food f = recipeLoader.GetFoodFromRecipe(foods);
+        if (f != null)
+        {
+            InventoryCard card = playerInventory.CreateCard(f, 1);
+            card.transform.parent = cookingOutput.transform;
+            card.transform.position = cookingOutput.transform.position;
+            card.GetComponent<Button>().interactable = false;
+            cookingOutput.storedCard = card;
+            return true;
+
+        }
+        else if (cookingOutput.storedCard != null && !cookingOutput.storedCard.GetComponent<Button>().enabled)
+        {
+            cookingOutput.storedCard.gameObject.SetActive(false);
+            cookingOutput.storedCard = null;
+        }
+        return false;
+    }
+
 }

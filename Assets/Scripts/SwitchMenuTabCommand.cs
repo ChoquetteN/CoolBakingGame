@@ -11,7 +11,6 @@ public class SwitchMenuTabCommand : iCommand
     }
     public void Execute()
     {
-        Debug.Log(TabToSwitchTo.ToString());
         TabToSwitchTo.showProps();
     }
 }

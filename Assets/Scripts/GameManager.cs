@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         }
 
         OpenMenuButton.onClick.AddListener(new OpenMenu(playerMenu).Execute);
-        playerMenu.OnItemPurchase = curPlayerSubtractGold;
+        playerMenu.OnItemPurchase = CheckHasEnoughGold;
     }
 
     public PlayerData getLogOutData()
@@ -66,11 +66,17 @@ public class GameManager : MonoBehaviour
         return gold;
     }
 
-    public void curPlayerSubtractGold(int goldToSubtract)
+    // It would be cool if I could make repit objects. Allow the player to browse purchase history. 
+    public bool CheckHasEnoughGold(int goldToSubtract)
     {
-        curPlayer.Gold -= goldToSubtract;
-        goldCounterUI.DisplayGoldAmount((int)curPlayer.Gold);
-        Debug.Log("Subtract gold hit");
+        if (goldToSubtract <= curPlayer.Gold)
+        {
+            // Move gold to invintory so this has single responsibility.
+            curPlayer.Gold -= goldToSubtract;
+            goldCounterUI.DisplayGoldAmount((int)curPlayer.Gold);
+            return true;
+        }
+        return false;
     }
 
     // Update is called once per frame

@@ -11,9 +11,18 @@ public class BuyMenu : MonoBehaviour, iPlayerMenuTab
     [SerializeField]
     ItemOnSale[] itemsOnSale;
 
+    void Start()
+    {
+        for (int i = 0; i < itemsOnSale.Length; i++)
+        {
+            Food food = ItemsInShop[i];
+            itemsOnSale[i].getBuyButton().onClick.AddListener(delegate { if (playerMenu.OnItemPurchase.Invoke(food.Buy)) { playerMenu.addFoodToInventory(food, 1); { if(!playerMenu.hasCardForFood(food)) playerMenu.CreateCard(food, 1); } } });
+        }
+    }
 
     public void hideProps()
     {
+        this.gameObject.SetActive(false);
         foreach(ItemOnSale item in itemsOnSale)
         {
             item.HideItem();
@@ -28,12 +37,13 @@ public class BuyMenu : MonoBehaviour, iPlayerMenuTab
     public void showProps()
     {
         playerMenu.setMenu(this);
+        this.gameObject.SetActive(true);
         labelAllStoreItems();
-        for( int i = 0; i < itemsOnSale.Length; i++)
-        {
-            int price = ItemsInShop[i].Buy;
-            itemsOnSale[i].getBuyButton().onClick.AddListener(delegate { Debug.Log(i); playerMenu.OnItemPurchase.Invoke(price); });
-        }
+        //for( int i = 0; i < itemsOnSale.Length; i++)
+        //{
+        //    Food food = ItemsInShop[i];
+        //    itemsOnSale[i].getBuyButton().onClick.AddListener(delegate { if (playerMenu.OnItemPurchase.Invoke(food.Buy)) { playerMenu.addFoodToInventory(food, 1); } });
+        //}
     }
 
     public void AddFoodToShopList( Food food)

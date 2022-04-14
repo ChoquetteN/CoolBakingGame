@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\PlayerMenus\Buy\BuyMenu.cs" />
     <Compile Include="Assets\Scripts\iCommand.cs" />
     <Compile Include="Assets\Scripts\Food.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\Json\FoodLoader.cs" />
     <Compile Include="Assets\Scripts\iFood.cs" />
     <Compile Include="Assets\Scripts\Time\TimeKeeper.cs" />
@@ -78,8 +79,10 @@
     <Compile Include="Assets\Scripts\PlayerMenus\Sell\SellMenu.cs" />
     <Compile Include="Assets\Scripts\Json\JsonLoader.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Inventory.cs" />
     <Compile Include="Assets\Scripts\InventoryCard.cs" />
+    <Compile Include="Assets\Scripts\PointerControl.cs" />
+    <Compile Include="Assets\Scripts\RecipeLoader.cs" />
+    <Compile Include="Assets\Scripts\BakeCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -1,18 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CookingSlot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public InventoryCard cardInSlot { get; set; }
+
+    public Action<InventoryCard> OnCardAdd;
+    public Action<InventoryCard> OnCardRemove;
+
+    void OnTriggerEnter2D(Collider2D col)
     {
-        
+       if (col.gameObject.GetComponent<InventoryCard>() != null)
+        {
+            if (cardInSlot != null)
+            {
+                cardInSlot.SetNewLastPos(col.gameObject.GetComponent<InventoryCard>().GetLastPos());
+                OnCardRemove.Invoke(cardInSlot);
+            }
+            cardInSlot = col.gameObject.GetComponent<InventoryCard>();
+            cardInSlot.SetNewLastPos(this.transform.position);
+            OnCardAdd.Invoke(cardInSlot);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerExit2D(Collider2D col)
     {
-        
+        if (col.gameObject.GetComponent<InventoryCard>() != null && col.gameObject.GetComponent<InventoryCard>() == cardInSlot)
+        {
+             cardInSlot.SetToStartPos();
+            OnCardRemove.Invoke(cardInSlot);
+             cardInSlot = null;
+        }
     }
+
 }

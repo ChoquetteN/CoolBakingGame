@@ -25,6 +25,11 @@ public class SpriteHolder : MonoBehaviour
         instance = this;
     }
 
+    public int CountOfFoodArt()
+    {
+        return FoodArt.Length - 1;
+    }
+
     public Sprite GetFoodArtFromIDNumber(int index)
     {
         if (FoodArt.Length > index-1 )
